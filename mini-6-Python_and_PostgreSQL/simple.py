@@ -28,43 +28,63 @@ conn = psycopg2.connect(host=secrets['host'],
 
 cur = conn.cursor()
 
-sql = 'DROP TABLE IF EXISTS pythonfun CASCADE;'
+# sql = 'DROP TABLE IF EXISTS pythonfun CASCADE;'
+# print(sql)
+# cur.execute(sql)
+
+# sql = 'CREATE TABLE pythonfun (id SERIAL, line TEXT);'
+# print(sql)
+# cur.execute(sql)
+
+# conn.commit()    # Flush it all to the DB server
+
+# for i in range(10) : 
+#     txt = "Have a nice day "+str(i)
+#     sql = 'INSERT INTO pythonfun (line) VALUES (%s);'
+#     cur.execute(sql, (txt, ))
+
+# conn.commit()
+
+# sql = "SELECT id, line FROM pythonfun WHERE id=5;" 
+# print(sql)
+# cur.execute(sql)
+
+# row = cur.fetchone()
+# if row is None :
+#     print('Row not found')
+# else:
+#     print('Found', row)
+
+# sql = 'INSERT INTO pythonfun (line) VALUES (%s) RETURNING id;'
+# cur.execute(sql, (txt, ))
+# id = cur.fetchone()[0]
+# print('New id', id)
+
+# # Lets make a mistake
+# sql = "SELECT line FROM pythonfun WHERE mistake=5;"
+# print(sql)
+# cur.execute(sql)
+
+# conn.commit()
+# cur.close()
+
+###### insert 300 random numbers into pythonseq table
+sql = 'DROP TABLE IF EXISTS pythonseq CASCADE;'
 print(sql)
 cur.execute(sql)
 
-sql = 'CREATE TABLE pythonfun (id SERIAL, line TEXT);'
+sql = 'CREATE TABLE pythonseq (iter INTEGER, val INTEGER);'
 print(sql)
 cur.execute(sql)
-
-conn.commit()    # Flush it all to the DB server
-
-for i in range(10) : 
-    txt = "Have a nice day "+str(i)
-    sql = 'INSERT INTO pythonfun (line) VALUES (%s);'
-    cur.execute(sql, (txt, ))
 
 conn.commit()
+value = 331876
 
-sql = "SELECT id, line FROM pythonfun WHERE id=5;" 
-print(sql)
-cur.execute(sql)
-
-row = cur.fetchone()
-if row is None : 
-    print('Row not found')
-else:
-    print('Found', row)
-
-sql = 'INSERT INTO pythonfun (line) VALUES (%s) RETURNING id;'
-cur.execute(sql, (txt, ))
-id = cur.fetchone()[0]
-print('New id', id)
-
-# Lets make a mistake
-sql = "SELECT line FROM pythonfun WHERE mistake=5;"
-print(sql)
-cur.execute(sql)
+for i in range(300) :
+    print(i+1, value)
+    sql = 'INSERT INTO pythonseq (iter, val) VALUES (%s, %s);'
+    cur.execute(sql, (i+1,value, ))
+    value = int((value * 22) / 7) % 1000000
 
 conn.commit()
 cur.close()
-
