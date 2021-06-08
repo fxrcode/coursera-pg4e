@@ -41,7 +41,12 @@ print(res)
 doc = {
     'author': 'kimchy',
     'type' : 'tweet',
-    'text': 'Elasticsearch: cool. bonsai cool.',
+    'text': """That is it and unlike a dog Python is already completely trained When
+you say try Python will try every time you say it without fail
+We will learn these reserved words and how they are used in good time
+but for now we will focus on the Python equivalent of speak in
+humantodog language The nice thing about telling Python to speak is
+    """,
     'timestamp': datetime.now(),
 }
 
